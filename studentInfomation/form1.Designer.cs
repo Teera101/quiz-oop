@@ -40,26 +40,28 @@
             label4 = new Label();
             labelDepartment = new Label();
             showstudentButton = new Button();
+            label5 = new Label();
+            gradetextBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // sdntextBox
             // 
-            sdntextBox.Location = new Point(53, 227);
+            sdntextBox.Location = new Point(53, 207);
             sdntextBox.Name = "sdntextBox";
             sdntextBox.Size = new Size(300, 31);
             sdntextBox.TabIndex = 0;
             // 
             // sdIDtextBox
             // 
-            sdIDtextBox.Location = new Point(53, 312);
+            sdIDtextBox.Location = new Point(53, 278);
             sdIDtextBox.Name = "sdIDtextBox";
             sdIDtextBox.Size = new Size(300, 31);
             sdIDtextBox.TabIndex = 1;
             // 
             // sdmTextBox
             // 
-            sdmTextBox.Location = new Point(53, 398);
+            sdmTextBox.Location = new Point(53, 352);
             sdmTextBox.Name = "sdmTextBox";
             sdmTextBox.Size = new Size(300, 31);
             sdmTextBox.TabIndex = 2;
@@ -67,16 +69,17 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(53, 199);
+            label1.Location = new Point(53, 179);
             label1.Name = "label1";
             label1.Size = new Size(125, 25);
             label1.TabIndex = 3;
             label1.Text = "Student Name";
+            label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(53, 284);
+            label2.Location = new Point(53, 250);
             label2.Name = "label2";
             label2.Size = new Size(96, 25);
             label2.TabIndex = 4;
@@ -85,7 +88,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(53, 370);
+            label3.Location = new Point(53, 324);
             label3.Name = "label3";
             label3.Size = new Size(58, 25);
             label3.TabIndex = 5;
@@ -93,7 +96,7 @@
             // 
             // addstudentButton
             // 
-            addstudentButton.Location = new Point(53, 469);
+            addstudentButton.Location = new Point(53, 516);
             addstudentButton.Name = "addstudentButton";
             addstudentButton.Size = new Size(140, 40);
             addstudentButton.TabIndex = 6;
@@ -119,6 +122,7 @@
             dataGridView.RowHeadersWidth = 62;
             dataGridView.Size = new Size(1009, 521);
             dataGridView.TabIndex = 8;
+            dataGridView.CellContentClick += dataGridView_CellContentClick;
             // 
             // label4
             // 
@@ -141,7 +145,7 @@
             // 
             // showstudentButton
             // 
-            showstudentButton.Location = new Point(213, 469);
+            showstudentButton.Location = new Point(199, 516);
             showstudentButton.Name = "showstudentButton";
             showstudentButton.Size = new Size(140, 40);
             showstudentButton.TabIndex = 11;
@@ -149,11 +153,29 @@
             showstudentButton.UseVisualStyleBackColor = true;
             showstudentButton.Click += showstudentButton_Click;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(53, 393);
+            label5.Name = "label5";
+            label5.Size = new Size(43, 25);
+            label5.TabIndex = 12;
+            label5.Text = "gpa";
+            // 
+            // gradetextBox
+            // 
+            gradetextBox.Location = new Point(53, 421);
+            gradetextBox.Name = "gradetextBox";
+            gradetextBox.Size = new Size(300, 31);
+            gradetextBox.TabIndex = 13;
+            // 
             // form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1406, 635);
+            Controls.Add(gradetextBox);
+            Controls.Add(label5);
             Controls.Add(showstudentButton);
             Controls.Add(labelDepartment);
             Controls.Add(label4);
@@ -187,5 +209,7 @@
         private Label label4;
         private Label labelDepartment;
         private Button showstudentButton;
+        private Label label5;
+        private TextBox gradetextBox;
     }
 }

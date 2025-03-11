@@ -8,6 +8,8 @@
         {
             InitializeComponent();
             LoadTeachers();
+
+            dataGridView.Visible = false;
         }
         private void LoadTeachers()
         {
@@ -20,47 +22,30 @@
             comboBox.DataSource = teachers;
             comboBox.DisplayMember = "Name"; // ให้แสดงเฉพาะชื่ออาจารย์
 
-            dataGridView.DataSource = null;
-            dataGridView.DataSource = teachers;
-            dataGridView.Refresh(); //รีเฟรช DataGridView
+            //dataGridView.DataSource = null;
+            //dataGridView.DataSource = teachers;
+            //dataGridView.Refresh(); //รีเฟรช DataGridView
 
-            //ตรวจสอบว่าคอลัมน์มีอยู่จริงก่อนซ่อน
-            Console.WriteLine("Columns in DataGridView:");
-            foreach (DataGridViewColumn column in dataGridView.Columns)
-            {
-                Console.WriteLine($"- {column.Name}"); // แสดงคอลัมน์ที่มีอยู่จริง
-            }
-
-            // ใช้คอลัมน์ที่มีอยู่จริง แทน "students"
-            if (dataGridView.Columns.Contains("Department"))
-            {
-                dataGridView.Columns["Department"].Visible = false;
-            }
+            //UpdateDataGridView();
+                                                
+           
         }
 
-        private void LoadStudentsForAdvisor(Teacher advisor)
+        private void UpdateDataGridView()
         {
-            // ดึงรายชื่อนักศึกษาของอาจารย์ที่เลือก
-            List<Student> studentsOfAdvisor = advisor.GetStudents();
+            var sortedStudents = students.OrderByDescending(s => s.Grade).ToList();
 
-            // ถ้าไม่มีนักศึกษาให้เคลียร์ตาราง
-            if (studentsOfAdvisor.Count == 0)
-            {
-                dataGridView.DataSource = null;
-                MessageBox.Show($"อาจารย์ {advisor.Name} ยังไม่มีนักศึกษาในที่ปรึกษา", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            // แสดงเฉพาะชื่ออาจารย์ในคอลัมน์ Advisor แทน Object
             dataGridView.DataSource = null;
-            dataGridView.DataSource = studentsOfAdvisor;
+            dataGridView.DataSource = sortedStudents;
+            dataGridView.Refresh();
 
-            // ซ่อนคอลัมน์ที่ไม่ต้องการ
-            if (dataGridView.Columns.Contains("Advisor"))
+            if (dataGridView.Columns["Advisor"] != null)
             {
                 dataGridView.Columns["Advisor"].Visible = false;
             }
         }
+        
+       
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -70,6 +55,7 @@
 
                 //โหลดรายชื่อนักศึกษาที่อยู่ภายใต้ที่ปรึกษาคนนี้
                 LoadStudentsForAdvisor(selectedTeacher);
+
             }
         }
 
@@ -83,9 +69,10 @@
             string studentName = sdntextBox.Text.Trim();
             string studentID = sdIDtextBox.Text.Trim();
             string major = sdmTextBox.Text.Trim();
+            double grade;
 
             //ตรวจสอบค่าที่กรอก
-            if (string.IsNullOrEmpty(studentName) || string.IsNullOrEmpty(studentID) || string.IsNullOrEmpty(major))
+            if (string.IsNullOrEmpty(studentName) || string.IsNullOrEmpty(studentID) || string.IsNullOrEmpty(major)|| !double.TryParse(gradetextBox.Text, out grade))
             {
                 MessageBox.Show("กรุณากรอกข้อมูลให้ครบถ้วน", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -104,19 +91,47 @@
                 MessageBox.Show("รหัสนักศึกษานี้ถูกใช้งานแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            MessageBox.Show($"Adding Student: {studentName}, Grade: {grade}", "DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             //สร้างนักศึกษาใหม่
-            Student newStudent = new Student(studentID, studentName, major);
+            Student newStudent = new Student(studentID, studentName, major, grade);
             newStudent.AssignAdvisor(selectedTeacher);
             students.Add(newStudent);
 
-            //แสดงข้อมูลอัปเดตใน DataGridView
-            LoadStudentsForAdvisor(selectedTeacher);
+            //LoadStudentsForAdvisor(selectedTeacher);
 
             //ล้างข้อมูลใน TextBox
+            //UpdateDataGridView();
             sdntextBox.Clear();
             sdIDtextBox.Clear();
             sdmTextBox.Clear();
+            gradetextBox.Clear();
+        }
+
+        private void LoadStudentsForAdvisor(Teacher advisor)
+        {
+            //ดึงรายชื่อนักศึกษาของอาจารย์ที่เลือก
+            List<Student> studentsOfTeacher = advisor.GetStudents();
+
+
+            if (studentsOfTeacher.Count == 0)
+            {
+                dataGridView.Visible = false;
+                return;
+            }
+
+            var sortedStudents = studentsOfTeacher.OrderByDescending(s => s.Grade).ToList();
+
+
+            //แสดงรายชื่อนักศึกษาใน DataGridView
+            dataGridView.Visible = true;
+            dataGridView.DataSource = null; // เคลียร์ข้อมูลเก่า
+            dataGridView.DataSource = sortedStudents;
+
+            if (dataGridView.Columns["Advisor"] != null)
+            {
+                dataGridView.Columns["Advisor"].Visible = false;
+            }
         }
 
         private void comboBoxTeacher_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,14 +157,30 @@
             //ตรวจสอบว่ามีนักศึกษาหรือไม่
             if (studentsOfTeacher.Count == 0)
             {
+                dataGridView.Visible = false;
                 MessageBox.Show($"อาจารย์ {selectedTeacher.Name} ยังไม่มีนักศึกษาในที่ปรึกษา", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
+
+            var sortedStudents = studentsOfTeacher.OrderByDescending(s => s.Grade).ToList();
+
             //แสดงรายชื่อนักศึกษาใน DataGridView
+            dataGridView.Visible = true;
             dataGridView.DataSource = null; // เคลียร์ข้อมูลเก่า
-            dataGridView.DataSource = studentsOfTeacher;
+            dataGridView.DataSource = sortedStudents;
+
+            UpdateDataGridView();
         }
 
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

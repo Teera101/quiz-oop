@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static studentInfomation.Student;
 
 namespace studentInfomation
 {
-    internal class Teacher
+    internal class Teacher : Person
     {
-        public string Name { get; private set; }
         public string Department { get; private set; }
-        private List<Student> students; // รายชื่อนักศึกษาที่ที่ปรึกษา
+        private List<Student> students;
 
         public Teacher(string name, string department)
+            : base(name) // สืบทอด Name จาก Person
         {
-            Name = name;
             Department = department;
             students = new List<Student>();
         }
@@ -31,6 +26,16 @@ namespace studentInfomation
         public List<Student> GetStudents()
         {
             return students;
+        }
+
+        public Student? GetTopStudent()
+        {
+            return students.OrderByDescending(s => s.Grade).FirstOrDefault();
+        }
+
+        public override string GetInfo()
+        {
+            return $"อาจารย์: {Name}, ภาควิชา: {Department}";
         }
     }
 }
