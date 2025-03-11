@@ -1,0 +1,17 @@
+D:\oop\quiz-oop\studentInfomation\bin\Debug\net8.0-windows\studentInfomation.exe
+D:\oop\quiz-oop\studentInfomation\bin\Debug\net8.0-windows\studentInfomation.deps.json
+D:\oop\quiz-oop\studentInfomation\bin\Debug\net8.0-windows\studentInfomation.runtimeconfig.json
+D:\oop\quiz-oop\studentInfomation\bin\Debug\net8.0-windows\studentInfomation.dll
+D:\oop\quiz-oop\studentInfomation\bin\Debug\net8.0-windows\studentInfomation.pdb
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.form1.resources
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.csproj.GenerateResource.cache
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.GeneratedMSBuildEditorConfig.editorconfig
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.AssemblyInfoInputs.cache
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.AssemblyInfo.cs
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.csproj.CoreCompileInputs.cache
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.sourcelink.json
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.dll
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\refint\studentInfomation.dll
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.pdb
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\studentInfomation.genruntimeconfig.cache
+D:\oop\quiz-oop\studentInfomation\obj\Debug\net8.0-windows\ref\studentInfomation.dll
